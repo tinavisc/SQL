@@ -1,0 +1,43 @@
+--Create a Skincare Store database
+
+CREATE TABLE skincare_store(id INTEGER PRIMARY KEY,item_name TEXT, weekly_quantity_sold INTEGER, price INTEGER,skin_type TEXt);
+
+INSERT INTO skincare_store VALUES
+(1, "moisturizing face wash", 25, 13.99, "dry skin"),
+(2, "normal face wash", 20, 12.99, "combination skin"),
+(3, "hydrating toner", 12, 11.99, "dry skin"),
+(4, "cream moisturizer", 20, 14.99, "dry skin"),
+(5, "gel moisturizer", 13, 14.99, "oily skin"),
+(6, "BHA toner", 5, 10.99, "oily skin"),
+(7, "essence", 12, 24.99, "dry skin"),
+(8, "vitamin c serum", 15, 34.50, "dry skin"),
+(9, "eye cream", 32, 24.99, "dry skin"),
+(10, "supplements", 5, 54.99, "combination skin"),
+(11, "micellar water", 16, 10.99, "dry skin"),
+(12, "watery essence", 3, 12.99, "combination skin"),
+(13, "SPF35", 12, 24.95, "combination skin"),
+(14, "SPF50+", 24, 34.99,"combination skin"),
+(15, "retinol", 9, 24.99, "oily skin");
+
+--display the database ordered by price.
+SELECT * FROM skincare_store 
+ORDER BY price ASC; 
+
+--what are the 5 most popular items?
+
+SELECT item_name, weekly_quantity_sold, price 
+FROM skincare_store 
+ORDER BY weekly_quantity_sold desc 
+LIMIT 5;
+
+--products for which skincare type have the most customer demand?
+
+SELECT skin_type,
+SUM (weekly_quantity_sold)
+FROM skincare_store
+GROUP BY skin_type
+ORDER BY SUM(weekly_quantity_sold) desc
+
+
+
+
