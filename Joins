@@ -1,0 +1,78 @@
+--Create table of actors and their associated hometowns, years of birth, and spouse
+
+CREATE TABLE actors
+(id INTEGER PRIMARY KEY,
+full_name TEXT,
+hometown TEXT,
+year_of_birth INTEGER,
+spouse_id INTEGER);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Ashton Kutcher", "Cedar Rapids", 1978, 2);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Mila Kunis", "Chernivtsi", 1981, 1);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Blake Lively", "Los Angeles", 1987, 4);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Ryan Reynolds", "Vancouver", 1976, 3);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Brad Pitt", "Shawnee", 1963, 6);
+
+INSERT INTO actors (full_name, hometown, year_of_birth, spouse_id)
+VALUES ("Angelina Jolie", "Los Angeles", 1975, 5); 
+
+INSERT INTO actors (full_name, hometown, year_of_birth)
+VALUES ("Meryl Streep", "Summit", 1949);
+
+INSERT INTO actors (full_name, hometown, year_of_birth)
+VALUES ("Amanda Seyfried", "Allentown", 1985);
+
+
+--create a table related to "actors" table of movies the above actors have starred in, including their co-star
+
+CREATE TABLE movies
+(id INTEGER PRIMARY KEY,
+actor_id INTEGER,
+title TEXT,
+co_star_id INTEGER);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (1, "No Strings Attached",2);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (2, "No Strings Attached", 1);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (3, "Green Lantern", 4);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (4, "Green Lantern", 3);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (5, "Mr Mrs Smith", 6);
+
+INSERT INTO movies (actor_id, title, co_star_id) VALUES (6, "Mr Mrs Smith", 5);
+
+INSERT INTO movies (actor_id, title) VALUES (7, "Mamma Mia");
+
+INSERT INTO movies (actor_id, title) VALUES (8, "Mamma Mia");
+
+
+--Use a Join to create a table showing actors names and the movie they starred in
+
+SELECT actors.full_name AS actor, movies.title AS movie
+    FROM actors
+    JOIN movies
+    ON actors.id = movies.actor_id;
+
+
+--Use a Self Join to create a table that shows the names of each actor and their respective spouse, if included in the avaiable dataset 
+
+SELECT actors.full_name AS actor, spouse.full_name AS spouse_name
+    FROM actors
+    LEFT OUTER JOIN actors spouse
+    ON actors.spouse_id = spouse.id;
+    
+    
+
+    
+
