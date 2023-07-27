@@ -1,0 +1,97 @@
+# For this project, I downloaded Spotify data from Kaggle.
+# Then I created a table to insert Spotify data into.
+# Finally, I performed analytics on the data using SQL. 
+
+#Creating the table: 
+CREATE TABLE BIT_DB.Spotifydata (
+id integer PRIMARY KEY,
+artist_name varchar NOT NULL,
+track_name varchar NOT NULL,
+track_id varchar NOT NULL,
+popularity integer NOT NULL,
+danceability decimal(4,3) NOT NULL,
+energy decimal(4,3) NOT NULL,
+key integer NOT NULL,
+loudness decimal(5,3) NOT NULL,
+mode integer NOT NULL,
+speechiness decimal(5,4) NOT NULL,
+acousticness decimal(6,5) NOT NULL,
+instrumentalness text NOT NULL,
+liveness decimal(5,4) NOT NULL,
+valence decimal(4,3) NOT NULL,
+tempo decimal(6,3) NOT NULL,
+duration_ms integer NOT NULL,
+time_signature integer NOT NULL 
+)
+
+#Then I inserted the Spotify Data .csv into the table.
+
+#Next, I explored the data using SQL to answer the following questions.
+
+
+#1. What is(are) the most popular track(s), and which artist(s) released it(them)?
+SELECT track_name, artist_name, popularity 
+FROM Spotifydata
+WHERE popularity = (SELECT MAX(popularity) FROM Spotifydata)
+
+
+#2. What are the Top 10 artists based on song popularity?
+SELECT track_name, artist_name, popularity
+FROM BIT_DB.spotifydata
+ORDER BY popularity desc
+LIMIT 10
+
+
+#3. Which artists have more than 1 song in the top 50 most listened to songs on Spotify in 2021, and how many songs do they each have?
+SELECT artist_name, COUNT(track_id) AS tracks 
+FROM Spotifydata
+GROUP BY artist_name
+HAVING tracks>1
+ORDER BY tracks desc
+
+
+#4. Which artist released the longest song?
+SELECT artist_name, track_name, duration_ms
+FROM Spotifydata
+WHERE duration_ms IN (SELECT MAX(duration_ms) FROM Spotifydata)
+
+
+
+#5. What is the average danceability of the top 10 most popular songs?
+SELECT AVG(danceability) AS top10_danceability
+FROM (SELECT danceability 
+  FROM Spotifydata
+  ORDER BY popularity DESC
+  LIMIT 10)
+
+
+#6. What is the average length of the top 10 most popular songs?
+SELECT AVG(duration_ms) AS top10_duration
+FROM (SELECT duration_ms 
+        FROM Spotifydata
+        ORDER by popularity DESC
+        LIMIT 10)
+
+#7. What artists have an average popularity of 90 or above? Label them as "Top Star".
+WITH pop_avg_CTE AS(
+  SELECT s.artist_name, avg(s.popularity) AS avg_popularity
+FROM Spotifydata s
+GROUP BY s.artist_name
+)
+
+SELECT artist_name, avg_popularity, 'Top Star' AS tag
+FROM pop_avg_CTE
+WHERE avg_popularity>=90;
+
+
+
+
+
+
+
+
+
+
+
+
+
