@@ -1,3 +1,6 @@
+## In this project, I created my own datatbase of celebrities using SQL and used multiple joins to select relevant information.
+
+
 --Create table of actors and their associated hometowns, years of birth, and spouse
 
 CREATE TABLE actors
