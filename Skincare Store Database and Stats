@@ -1,3 +1,6 @@
+##In this project, I created my own database of information from a Skincare Store. I then used SQL to determine the most
+popular products sold and which category of products had the most consumer demand. 
+
 --Create a Skincare Store database
 
 CREATE TABLE skincare_store(id INTEGER PRIMARY KEY,item_name TEXT, weekly_quantity_sold INTEGER, price INTEGER,skin_type TEXt);
