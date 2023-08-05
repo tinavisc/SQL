@@ -1,3 +1,65 @@
+*****Data used to create the table in this database can be found below****
+
+##For this project, I used a database of NASA astronaut information and performed SELECT queries to (1) do an exploratory
+data analysis, (2), determine how many NASA astronauts have a military background and if astronauts tend to come from a particular branch of 
+the military, and (3) compare the number of space flight hours between male and female astronauts.
+
+
+
+SELECT COUNT(Name) FROM astronauts;
+
+SELECT AVG(space_flights) FROM astronauts;
+
+SELECT MAX(space_flights) FROM astronauts;
+
+SELECT MIN(space_flights) FROM astronauts;
+
+SELECT Status FROM astronauts
+GROUP BY Status;
+
+SELECT Military_Branch FROM astronauts
+GROUP BY Military_Branch;
+
+SELECT COUNT(space_flights),
+    CASE
+        WHEN Military_Branch = "US Air Force" OR "US Air Force (Retired)" OR "US Air Force Reserves" OR "US Air Force Reserves (Retired)" THEN "Air Force"
+        WHEN Military_Branch = "US Army" OR "US Army (Retired)" THEN "Army"
+        WHEN Military_Branch = "US Coast Guard (Retired)" THEN "Coast Guard"
+        WHEN Military_Branch = "US Marine Corps" OR "US Marine Corps (Retired)" OR "US Marine Corps Reserves" THEN "Marines"
+        WHEN Military_Branch = "US Naval Reserves" OR "US Naval Reserves (Retired)" OR "US Navy" OR "US Navy (Retired)" THEN "Navy"
+        ELSE "None"
+        END AS "Military?"
+FROM astronauts
+GROUP BY "Military?";
+
+SELECT Gender, COUNT(space_flights) FROM astronauts
+GROUP BY Gender;
+
+SELECT SUM(Space_Flight_hr) AS "Total Female Space Flight Hours" FROM astronauts
+WHERE gender = "Female"
+GROUP BY gender;
+
+SELECT SUM(Space_Flight_hr) AS "Total Male Space Flight Hours" FROM astronauts
+WHERE gender = "Male"
+GROUP BY gender;
+
+SELECT AVG(Space_Flight_hr) AS "Avg Female Space Flight Hours" FROM astronauts
+WHERE gender = "Female"
+GROUP BY gender;
+
+SELECT AVG(Space_Flight_hr) AS "Avg Male Space Flight Hours" FROM astronauts
+WHERE gender = "Male"
+GROUP BY gender;
+
+SELECT Name, Gender, Year, Space_Walks
+FROM astronauts
+WHERE space_walks>0 AND gender = "Female" 
+
+
+
+
+*******Data used in this project is listed below.*******
+
 CREATE TABLE astronauts(
    Name                TEXT PRIMARY KEY,
    Year                INTEGER,
@@ -376,62 +438,6 @@ INSERT INTO astronauts(Name,Year,GroupNum,Status,Birth_Date,Birth_Place,Gender,A
 INSERT INTO astronauts(Name,Year,GroupNum,Status,Birth_Date,Birth_Place,Gender,Alma_Mater,Undergraduate_Major,Graduate_Major,Military_Rank,Military_Branch,Space_Flights,Space_Flight_hr,Space_Walks,Space_Walks_hr,Missions,Death_Date,Death_Mission) VALUES ('Alfred M. Worden',1966,5,'Retired','2/7/1932','Jackson, MI','Male','US Military Academy; University of Michigan','Military Science','Aeronautical & Astronautical Engineering','Colonel','US Air Force (Retired)',1,295,1,0.5,'Apollo 15',NULL,NULL);
 INSERT INTO astronauts(Name,Year,GroupNum,Status,Birth_Date,Birth_Place,Gender,Alma_Mater,Undergraduate_Major,Graduate_Major,Military_Rank,Military_Branch,Space_Flights,Space_Flight_hr,Space_Walks,Space_Walks_hr,Missions,Death_Date,Death_Mission) VALUES ('John W. Young',1962,2,'Retired','9/24/1930','San Francisco, CA','Male','Georgia Institute of Technology','Aeronautical Engineering',NULL,'Captain','US Navy (Retired)',6,835,3,20,'Gemini 3, Gemini 10, Apollo 10, Apollo 16, STS-1 (Columbia), STS-9 (Columbia)',NULL,NULL);
 INSERT INTO astronauts(Name,Year,GroupNum,Status,Birth_Date,Birth_Place,Gender,Alma_Mater,Undergraduate_Major,Graduate_Major,Military_Rank,Military_Branch,Space_Flights,Space_Flight_hr,Space_Walks,Space_Walks_hr,Missions,Death_Date,Death_Mission) VALUES ('George D. Zamka',1998,17,'Retired','6/29/1962','Jersey City, NJ','Male','US Naval Academy; Florida Institute of Technology','Mathematics','Engineering Management','Colonel','US Marine Corps (Retired)',2,692,0,0,'STS-120 (Discovery), STS-130 (Endeavor)',NULL,NULL);
-
-SELECT COUNT(Name) FROM astronauts;
-
-SELECT AVG(space_flights) FROM astronauts;
-
-SELECT MAX(space_flights) FROM astronauts;
-
-SELECT MIN(space_flights) FROM astronauts;
-
-SELECT Status FROM astronauts
-GROUP BY Status;
-
-SELECT Military_Branch FROM astronauts
-GROUP BY Military_Branch;
-
-SELECT COUNT(space_flights),
-    CASE
-        WHEN Military_Branch = "US Air Force" OR "US Air Force (Retired)" OR "US Air Force Reserves" OR "US Air Force Reserves (Retired)" THEN "Air Force"
-        WHEN Military_Branch = "US Army" OR "US Army (Retired)" THEN "Army"
-        WHEN Military_Branch = "US Coast Guard (Retired)" THEN "Coast Guard"
-        WHEN Military_Branch = "US Marine Corps" OR "US Marine Corps (Retired)" OR "US Marine Corps Reserves" THEN "Marines"
-        WHEN Military_Branch = "US Naval Reserves" OR "US Naval Reserves (Retired)" OR "US Navy" OR "US Navy (Retired)" THEN "Navy"
-        ELSE "None"
-        END AS "Military?"
-FROM astronauts
-GROUP BY "Military?";
-
-SELECT Gender, COUNT(space_flights) FROM astronauts
-GROUP BY Gender;
-
-
-
-SELECT SUM(Space_Flight_hr) AS "Total Female Space Flight Hours" FROM astronauts
-WHERE gender = "Female"
-GROUP BY gender;
-
-SELECT SUM(Space_Flight_hr) AS "Total Male Space Flight Hours" FROM astronauts
-WHERE gender = "Male"
-GROUP BY gender;
-
-SELECT AVG(Space_Flight_hr) AS "Avg Female Space Flight Hours" FROM astronauts
-WHERE gender = "Female"
-GROUP BY gender;
-
-SELECT AVG(Space_Flight_hr) AS "Avg Male Space Flight Hours" FROM astronauts
-WHERE gender = "Male"
-GROUP BY gender;
-
-
-
-SELECT Name, Gender, Year, Space_Walks
-FROM astronauts
-WHERE space_walks>0 AND gender = "Female" 
-
-
-
 
 
 
